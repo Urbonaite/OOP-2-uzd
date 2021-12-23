@@ -42,11 +42,6 @@ class studentai {
             if (budas == 0){
                 cout << setprecision(2) << fixed << vidurkis[i] << "\n";
                 cout << setprecision(2) << fixed << egzaminas[i] << "\n";
-                // paz = pazymiai[i];
-                // for (int j = 0; j < paz.size(); j++){
-                //     cout << setprecision(2) << fixed << paz[j] << " ";
-                // }
-                // cout << "\n";
             }
             else{
                 cout << setprecision(2) << fixed << mediana[i] << "\n";
@@ -74,7 +69,6 @@ class studentai {
     }
 
     int ats_paz(){
-        // srand(time(NULL));
         return rand() % 10 + 1;
     }
 
@@ -149,7 +143,6 @@ class studentai {
         string eilute = "";
         vector <int> paz = {};
         ofstream myfile;
-        // cout << vardas_daugiau.size();
         for (int i = 0; i < vardas_daugiau.size(); i++){
             eilute += vardas_daugiau[i] + "," + pavarde_daugiau[i] + ",";
             paz = pazymiai_daugiau[i];
@@ -158,7 +151,7 @@ class studentai {
             }
             eilute += to_string(egzaminas_daugiau[i]) + " \n" ;
         }
-        myfile.open (pavadinimas, ofstream::trunc);
+        myfile.open(pavadinimas, ofstream::trunc);
         myfile << eilute;
         myfile.close();
     }
@@ -167,7 +160,6 @@ class studentai {
         string eilute = "";
         vector <int> paz = {};
         ofstream myfile;
-        // cout << vardas.size();
         for (int i = 0; i < vardas.size(); i++){
             eilute += vardas[i] + "," + pavarde[i] + ",";
             paz = pazymiai[i];
@@ -256,9 +248,10 @@ void nuskaityti_is_failo(string pavadinimas){
 
 
 int main(){
-    studentai grupe;
+    studentai grupe, grupe2;
+
     auto start_0 = chrono::high_resolution_clock::now();
-    grupe.generuoti_studentus(10000, 4);
+    grupe.generuoti_studentus(100000, 4);
     auto end_0 = chrono::high_resolution_clock::now();
     chrono::duration<double> diff_0 = end_0 - start_0;
     cout << "100,000 studentų generavimas ir įrašymas į klasę užtruko: " << diff_0.count() << "s \n\n";
@@ -276,15 +269,12 @@ int main(){
     chrono::duration<double> diff_2 = end_2 - start_2;
     cout << "100,000 studentų failų įrašymas užtruko: " << diff_2.count() << "s \n\n";
 
-    grupe.istrinti_irasus();
-
     auto start_3 = chrono::high_resolution_clock::now();
-    grupe.nuskaityti_is_failo("like_studentai.txt");
-    grupe.nuskaityti_is_failo("geri_studentai.txt");
+    grupe2.nuskaityti_is_failo("like_studentai.txt");
+    grupe2.nuskaityti_is_failo("geri_studentai.txt");
     auto end_3 = chrono::high_resolution_clock::now();
     chrono::duration<double> diff_3 = end_3 - start_3;
     cout << "100,000 nuskaitymas iš failų užtruko: " << diff_3.count() << "s \n\n";
 
-    // grupe.print_result(0);
     return 0;
 }
