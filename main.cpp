@@ -20,12 +20,12 @@ class studentai {
     vector <float> vidurkis;
     vector <float> mediana;
 
-    vector <string> vardas_daugiau;
-    vector <string> pavarde_daugiau;
-    vector <vector <int>> pazymiai_daugiau;
-    vector <float> egzaminas_daugiau;
-    vector <float> vidurkis_daugiau;
-    vector <float> mediana_daugiau;
+    // vector <string> vardas_daugiau;
+    // vector <string> pavarde_daugiau;
+    // vector <vector <int>> pazymiai_daugiau;
+    // vector <float> egzaminas_daugiau;
+    // vector <float> vidurkis_daugiau;
+    // vector <float> mediana_daugiau;
 
     studentai()
     {
@@ -35,12 +35,12 @@ class studentai {
         egzaminas = {};
         vidurkis = {};
         mediana = {};
-        vardas_daugiau = {};
-        pavarde_daugiau = {};
-        pazymiai_daugiau = {};
-        egzaminas_daugiau = {};
-        vidurkis_daugiau = {};
-        mediana_daugiau = {};
+        // vardas_daugiau = {};
+        // pavarde_daugiau = {};
+        // pazymiai_daugiau = {};
+        // egzaminas_daugiau = {};
+        // vidurkis_daugiau = {};
+        // mediana_daugiau = {};
         cout << "Įrašai sukurti " << "\n";
     }
 
@@ -129,56 +129,55 @@ class studentai {
         }
     }
 
-    void perkelti_studenta(int i){
-        vardas_daugiau.push_back(vardas[i]);
-        pavarde_daugiau.push_back(pavarde[i]);
-        pazymiai_daugiau.push_back(pazymiai[i]);
-        egzaminas_daugiau.push_back(egzaminas[i]);
-        vidurkis_daugiau.push_back(vidurkis[i]);
-        mediana_daugiau.push_back(mediana[i]);
-
-        vardas.erase(vardas.begin() + i);
-        pavarde.erase(pavarde.begin() + i);
-        pazymiai.erase(pazymiai.begin() + i);
-        egzaminas.erase(egzaminas.begin() + i);
-        vidurkis.erase(vidurkis.begin() + i);
-        mediana.erase(mediana.begin() + i);
+    void perkelti_studenta(int i, studentai &kiti){
+        kiti.vardas.push_back(vardas[i]);
+        kiti.pavarde.push_back(pavarde[i]);
+        kiti.pazymiai.push_back(pazymiai[i]);
+        kiti.egzaminas.push_back(egzaminas[i]);
+        kiti.vidurkis.push_back(vidurkis[i]);
+        kiti.mediana.push_back(mediana[i]);
     }
 
-    void skirstymas(int pagal){
+    void skirstymas(int pagal, studentai &blogi, studentai &geri){
         int senas_indeksas;
         if (pagal == 0){
-            for (int i = vardas.size(); i >= 0; i--){
+            for (int i = vardas.size()-1; i >= 0; i--){
                 if (vidurkis[i]>=5){
-                    perkelti_studenta(i);
+                    perkelti_studenta(i, geri);
+                }
+                else{
+                    perkelti_studenta(i, blogi);
                 }
             }
         }
         else{
-            for (int i = vardas.size(); i >= 0; i--){
+            for (int i = vardas.size()-1; i >= 0; i--){
                 if (mediana[i]>=5){
-                    perkelti_studenta(i);
+                    perkelti_studenta(i, geri);
+                }
+                else{
+                    perkelti_studenta(i, blogi);
                 }
             }
         }
     }
 
-    void irasyti_gerus_stud(string pavadinimas){
-        string eilute = "";
-        vector <int> paz = {};
-        ofstream myfile;
-        for (int i = 0; i < vardas_daugiau.size(); i++){
-            eilute += vardas_daugiau[i] + "," + pavarde_daugiau[i] + ",";
-            paz = pazymiai_daugiau[i];
-            for (int j = 0; j < paz.size(); j++){
-                eilute += to_string(paz[j]) + ",";
-            }
-            eilute += to_string(egzaminas_daugiau[i]) + " \n" ;
-        }
-        myfile.open (pavadinimas, ofstream::trunc);
-        myfile << eilute;
-        myfile.close();
-    }
+    // void irasyti_gerus_stud(string pavadinimas){
+    //     string eilute = "";
+    //     vector <int> paz = {};
+    //     ofstream myfile;
+    //     for (int i = 0; i < vardas_daugiau.size(); i++){
+    //         eilute += vardas_daugiau[i] + "," + pavarde_daugiau[i] + ",";
+    //         paz = pazymiai_daugiau[i];
+    //         for (int j = 0; j < paz.size(); j++){
+    //             eilute += to_string(paz[j]) + ",";
+    //         }
+    //         eilute += to_string(egzaminas_daugiau[i]) + " \n" ;
+    //     }
+    //     myfile.open(pavadinimas, ofstream::trunc);
+    //     myfile << eilute;
+    //     myfile.close();
+    // }
 
     void irasyti_likusius_stud(string pavadinimas){
         string eilute = "";
@@ -258,17 +257,19 @@ void nuskaityti_is_failo(string pavadinimas){
         egzaminas = {};
         vidurkis = {};
         mediana = {};
-        vardas_daugiau = {};
-        pavarde_daugiau = {};
-        pazymiai_daugiau = {};
-        egzaminas_daugiau = {};
-        vidurkis_daugiau = {};
-        mediana_daugiau = {};
+        // vardas_daugiau = {};
+        // pavarde_daugiau = {};
+        // pazymiai_daugiau = {};
+        // egzaminas_daugiau = {};
+        // vidurkis_daugiau = {};
+        // mediana_daugiau = {};
     }
+    
+
 };
 
 int main(){
-    studentai grupe, grupe2; 
+    studentai grupe; 
     grupe.generuoti_studentus(1000, 4);
     grupe.print_result(0);
     // negalimas priskyrimas:
